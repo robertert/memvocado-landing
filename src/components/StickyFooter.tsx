@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function StickyFooter() {
+  const { t } = useLanguage();
   const [pastHero, setPastHero] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
 
@@ -53,7 +55,7 @@ export function StickyFooter() {
             className="px-5 py-3 text-lg shadow-[4px_4px_0px_#2E3A2C]"
             onClick={scrollToForm}
           >
-            Zapisz się
+            {t.stickyFooter.button}
           </Button>
         </motion.div>
       )}

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { DoodleArrow } from "@/components/ui/DoodleArrow";
 import Image from "next/image";
+import { useLanguage } from "@/lib/LanguageContext";
 
 
 function PhoneMockup() {
@@ -33,6 +34,8 @@ function PhoneMockup() {
 }
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="px-6 py-16 md:py-24">
       <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2 md:gap-16">
@@ -42,15 +45,14 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h1 className="font-heading text-4xl leading-tight text-darkForest md:text-5xl lg:text-6xl">
-            &quot;Nie zakuwaj. Hoduj wiedzę.&quot;
+          <h1 className="font-heading text-4xl leading-tight text-darkForest md:text-5xl lg:text-6xl whitespace-pre-line">
+            {t.hero.heading}
           </h1>
 
           <p className="mt-6 max-w-md font-body text-lg leading-relaxed text-darkForest/80 md:text-xl">
-            Nauka wreszcie przestała być nudna. Karm swoje Awokado wiedzą, korzystając z&nbsp;potęgi algorytmu{" "}
-            <span className="font-bold border-b-2 border-avocadoGreen">FSRS</span>.<br className="hidden sm:block" />
-            <br className="hidden sm:block" /> Masz stare talie? Przenieś je jednym klikiem.
-            Masz papierowe notatki? <strong>Zeskanuj</strong> je w&nbsp;sekundę.
+            {t.hero.description1}
+            <span className="font-bold border-b-2 border-avocadoGreen">{t.hero.fsrs}</span>.<br className="hidden sm:block" />
+            <br className="hidden sm:block" /> {t.hero.description2}<strong>{t.hero.scan}</strong>{t.hero.description3}
           </p>
           <div id="hero-cta" className="relative mt-8 inline-flex items-start gap-2">
             <Button
@@ -62,7 +64,7 @@ export function Hero() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              Rozpocznij
+              {t.hero.cta}
             </Button>
             <DoodleArrow
               className="absolute -right-20 -top-6 hidden md:block"

@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function WaitingList() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -14,7 +16,7 @@ export function WaitingList() {
     setError("");
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Podaj poprawny adres e-mail.");
+      setError(t.waitingList.error);
       return;
     }
 
@@ -32,11 +34,10 @@ export function WaitingList() {
         transition={{ duration: 0.5 }}
       >
         <h2 className="font-heading text-3xl text-darkForest md:text-4xl">
-          Bądź pierwszy w kolejce
+          {t.waitingList.heading}
         </h2>
         <p className="mt-4 font-body text-lg text-darkForest/70">
-          Zostaw e-mail, a powiadomimy Cię, gdy Memvocado będzie gotowe do
-          pobrania.
+          {t.waitingList.description}
         </p>
 
         {submitted ? (
@@ -47,10 +48,10 @@ export function WaitingList() {
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             <p className="font-heading text-xl text-darkForest">
-              Dzięki! Miejsce zaklepane 🥑
+              {t.waitingList.successTitle}
             </p>
             <p className="mt-2 font-body text-darkForest/70">
-              Damy Ci znać, jak tylko wystartujemy.
+              {t.waitingList.successSubtitle}
             </p>
           </motion.div>
         ) : (
@@ -62,11 +63,11 @@ export function WaitingList() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="twoj@email.com"
+              placeholder={t.waitingList.placeholder}
               className="w-full rounded-full border-2 border-darkForest bg-paperWhite px-5 py-3 font-body text-darkForest placeholder:text-darkForest/40 focus:outline-none focus:ring-2 focus:ring-avocadoGreen sm:max-w-xs"
             />
             <Button type="submit" variant="secondary" className="w-full sm:w-auto">
-              Zapisz się
+              {t.waitingList.button}
             </Button>
           </form>
         )}
@@ -77,8 +78,8 @@ export function WaitingList() {
 
         {!submitted && (
           <p className="mt-8 font-body text-xs text-darkForest/50">
-            Rejestrując się, akceptujesz{" "}
-            <a href="/privacy" className="underline transition-colors hover:text-darkForest">Politykę Prywatności</a>.
+            {t.waitingList.privacyNote}
+            <a href="/privacy" className="underline transition-colors hover:text-darkForest">{t.waitingList.privacyLink}</a>.
           </p>
         )}
       </motion.div>

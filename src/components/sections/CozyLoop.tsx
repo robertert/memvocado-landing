@@ -4,6 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import Image from "next/image";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -26,19 +27,21 @@ const cardVariants: Variants = {
 const WIDTH = 150;
 const HEIGHT = 200;
 
-const growthSteps = [
-  { day: "Dzień 1", label: "Nasionko", Svg: <Image src="/growth-images/phase-1.png" alt="Avo Phase 1" width={WIDTH} height={HEIGHT} /> },
-  { day: "Dzień 4", label: "Kiełek", Svg: <Image src="/growth-images/phase-3.png" alt="Avo Phase 3" width={WIDTH} height={HEIGHT} /> },
-  { day: "Dzień 7", label: "Żniwa", Svg: <Image src="/growth-images/phase-5.png" alt="Avo Phase 5" width={WIDTH} height={HEIGHT} /> },
-];
-
-const skins = [
-  { name: "Ninja Avo", rarity: "Epickie", Svg: <Image src="/skins/avo-ninja.png" alt="Avo Ninja" width={WIDTH} height={HEIGHT} /> },
-  { name: "Space Avo", rarity: "Rzadkie", Svg: <Image src="/skins/avo-space.png" alt="Avo Space" width={WIDTH} height={HEIGHT} /> },
-  { name: "Sleepy Avo", rarity: "Pospolite", Svg: <Image src="/skins/avo-sleepy.png" alt="Avo Sleepy" width={WIDTH} height={HEIGHT} /> },
-];
-
 export function CozyLoop() {
+  const { t } = useLanguage();
+
+  const growthSteps = [
+    { day: t.cozyLoop.day1, label: t.cozyLoop.seed, Svg: <Image src="/growth-images/phase-1.png" alt="Avo Phase 1" width={WIDTH} height={HEIGHT} /> },
+    { day: t.cozyLoop.day4, label: t.cozyLoop.sprout, Svg: <Image src="/growth-images/phase-3.png" alt="Avo Phase 3" width={WIDTH} height={HEIGHT} /> },
+    { day: t.cozyLoop.day7, label: t.cozyLoop.harvest, Svg: <Image src="/growth-images/phase-5.png" alt="Avo Phase 5" width={WIDTH} height={HEIGHT} /> },
+  ];
+
+  const skins = [
+    { name: t.cozyLoop.ninjaAvo, rarity: t.cozyLoop.epic, Svg: <Image src="/skins/avo-ninja.png" alt="Avo Ninja" width={WIDTH} height={HEIGHT} /> },
+    { name: t.cozyLoop.spaceAvo, rarity: t.cozyLoop.rare, Svg: <Image src="/skins/avo-space.png" alt="Avo Space" width={WIDTH} height={HEIGHT} /> },
+    { name: t.cozyLoop.sleepyAvo, rarity: t.cozyLoop.common, Svg: <Image src="/skins/avo-sleepy.png" alt="Avo Sleepy" width={WIDTH} height={HEIGHT} /> },
+  ];
+
   return (
     <section className="px-6 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
@@ -49,11 +52,10 @@ export function CozyLoop() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="font-heading text-3xl text-darkForest md:text-4xl">
-            To nie obowiązek. To Twoja roślinka.
+            {t.cozyLoop.heading}
           </h2>
           <p className="mt-3 max-w-xl font-body text-lg text-darkForest/70">
-            Ucz się codziennie, by Twoje Awokado rosło. Po 7&nbsp;dniach zbierz
-            plony i&nbsp;wylosuj unikalną skórkę.
+            {t.cozyLoop.description}
           </p>
         </motion.div>
 

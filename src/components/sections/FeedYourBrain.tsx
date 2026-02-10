@@ -4,8 +4,10 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { Camera, FileText, Database } from "lucide-react";
 import { Card } from "@/components/ui/Card";
+import { useLanguage } from "@/lib/LanguageContext";
 
 function ScanningAnimationDemo() {
+  const { t } = useLanguage();
   // Pętla 7s: skan (0-35%) → loading (35-55%) → gotowa talia (55-85%) → reset
   const DURATION = 7;
 
@@ -60,7 +62,7 @@ function ScanningAnimationDemo() {
           transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
         />
         <span className="mt-3 font-body text-xs text-darkForest/50">
-          Generowanie fiszek...
+          {t.feedYourBrain.generating}
         </span>
       </motion.div>
 
@@ -95,35 +97,36 @@ const cardVariants: Variants = {
   },
 };
 
-// Zmodyfikowana struktura danych - pierwszy kafelek ma 'customComponent' zamiast 'imageSrc'
-const tiles = [
-  {
-    key: "ocr",
-    icon: Camera,
-    title: "Skaner Notatek (OCR)",
-    description: "AI automatycznie wykryje tekst i przetłumaczy i przekształci go w fiszkę.",
-    imageSrc: "/demo-new-deck.png",
-    color: "bg-blue-50",
-  },
-  {
-    key: "file",
-    icon: FileText,
-    title: "Magia Plików",
-    description: "Analiza setek stron w sekundy. Wyciągamy esencję, żebyś Ty nie musiał.",
-    customComponent: <ScanningAnimationDemo />,
-    color: "bg-green-50",
-  },
-  {
-    key: "anki",
-    icon: Database,
-    title: "Przeprowadzka z innych aplikacji",
-    description: "Przenieś swoje stare talie jednym kliknięciem i ucz się dalej.",
-    imageSrc: "/demo-anki.png",
-    color: "bg-orange-50",
-  },
-];
-
 export function FeedYourBrain() {
+  const { t } = useLanguage();
+
+  const tiles = [
+    {
+      key: "ocr",
+      icon: Camera,
+      title: t.feedYourBrain.ocrTitle,
+      description: t.feedYourBrain.ocrDesc,
+      imageSrc: "/demo-new-deck.png",
+      color: "bg-blue-50",
+    },
+    {
+      key: "file",
+      icon: FileText,
+      title: t.feedYourBrain.fileTitle,
+      description: t.feedYourBrain.fileDesc,
+      customComponent: <ScanningAnimationDemo />,
+      color: "bg-green-50",
+    },
+    {
+      key: "anki",
+      icon: Database,
+      title: t.feedYourBrain.ankiTitle,
+      description: t.feedYourBrain.ankiDesc,
+      imageSrc: "/demo-anki.png",
+      color: "bg-orange-50",
+    },
+  ];
+
   return (
     <section className="px-6 py-16 md:py-24 bg-softCream/30">
       <div className="mx-auto max-w-6xl">
@@ -135,10 +138,10 @@ export function FeedYourBrain() {
           className="mb-12"
         >
           <h2 className="font-heading text-3xl text-darkForest md:text-4xl">
-            Z notatek do fiszek. <span className="text-avocadoGreen">W jedną chwilę.</span>
+            {t.feedYourBrain.heading}<span className="text-avocadoGreen">{t.feedYourBrain.headingHighlight}</span>
           </h2>
           <p className="mt-3 max-w-lg font-body text-lg text-darkForest/70">
-            Nie przepisuj. Zobacz, jak nasze AI robi to za Ciebie.
+            {t.feedYourBrain.subtitle}
           </p>
         </motion.div>
 
@@ -169,7 +172,6 @@ export function FeedYourBrain() {
 
               <div className="relative w-full h-full flex justify-center items-end px-4 pb-0">
                 <motion.div
-                  // Zwiększyłem lekko max-w, żeby animacja była wyraźniejsza
                   className="relative w-full max-w-[260px] shadow-xl rounded-t-[2.5rem] border-[6px] border-b-0 border-darkForest bg-white overflow-hidden z-0"
                   whileHover={{ y: -15 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}

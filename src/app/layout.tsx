@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/lib/LanguageContext";
 
 const poppins = Poppins({
   weight: "600",
@@ -47,7 +48,9 @@ export default function RootLayout({
     <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
       <body className="relative min-h-screen font-body antialiased">
         <div className="noise-bg" aria-hidden="true" />
-        <div className="relative z-10">{children}</div>
+        <LanguageProvider>
+          <div className="relative z-10">{children}</div>
+        </LanguageProvider>
       </body>
     </html>
   );

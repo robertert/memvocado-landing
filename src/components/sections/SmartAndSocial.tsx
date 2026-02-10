@@ -6,6 +6,7 @@ import { BrainCircuit, Sprout } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import Image from "next/image";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -27,6 +28,7 @@ const CURVE_D =
   "M 20 15 C 35 15, 40 50, 55 52 C 55 20, 60 18, 65 18 C 80 18, 90 48, 105 50 C 105 22, 110 20, 115 20 C 135 20, 150 45, 175 48";
 
 function ForgettingCurve() {
+  const { t } = useLanguage();
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [len, setLen] = useState(0);
@@ -45,7 +47,7 @@ function ForgettingCurve() {
       className="mt-20 w-full"
       fill="none"
       role="img"
-      aria-label="Krzywa zapominania FSRS"
+      aria-label={t.smartAndSocial.curveAria}
     >
       {/* Axes */}
       <line x1="20" y1="65" x2="190" y2="65" stroke="#2E3A2C" strokeWidth="1" opacity="0.2" />
@@ -91,10 +93,10 @@ function ForgettingCurve() {
 
       {/* Labels */}
       <text x="96" y="76" fill="#2E3A2C" fontSize="6" opacity="0.4" textAnchor="middle">
-        czas
+        {t.smartAndSocial.timeLabel}
       </text>
       <text x="10" y="40" fill="#2E3A2C" fontSize="6" opacity="0.4" textAnchor="middle" transform="rotate(-90 10 40)">
-        pamięć
+        {t.smartAndSocial.memoryLabel}
       </text>
     </svg>
   );
@@ -102,6 +104,8 @@ function ForgettingCurve() {
 
 
 export function SmartAndSocial() {
+  const { t } = useLanguage();
+
   return (
     <section className="px-6 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
@@ -112,7 +116,7 @@ export function SmartAndSocial() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
         >
-          Naukowa precyzja. Naturalny nawyk.
+          {t.smartAndSocial.heading}
         </motion.h2>
 
         <motion.div
@@ -126,14 +130,13 @@ export function SmartAndSocial() {
           <Card className="p-6 md:p-8 bg-softCream" variants={cardVariants}>
             <div className="flex items-center gap-3">
               <BrainCircuit className="size-6 text-darkForest" aria-hidden="true" />
-              <Badge>NAUKA</Badge>
+              <Badge>{t.smartAndSocial.scienceBadge}</Badge>
             </div>
             <h3 className="mt-4 font-heading text-xl text-darkForest md:text-2xl">
-              Algorytm FSRS
+              {t.smartAndSocial.fsrsTitle}
             </h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-darkForest/70 md:text-base">
-              Algorytm FSRS dba o&nbsp;to, byś powtarzał tylko to, co
-              zapominasz. Oszczędź 30% czasu.
+              {t.smartAndSocial.fsrsDesc}
             </p>
             <div className="flex width-full align-middle justify-center">
               <ForgettingCurve />
@@ -144,14 +147,13 @@ export function SmartAndSocial() {
           <Card className="overflow-hidden p-6 md:p-8 bg-softCream" variants={cardVariants}>
             <div className="flex items-center gap-3">
               <Sprout className="size-6 text-darkForest" aria-hidden="true" />
-              <Badge>NAWYK</Badge>
+              <Badge>{t.smartAndSocial.habitBadge}</Badge>
             </div>
             <h3 className="mt-4 font-heading text-xl text-darkForest md:text-2xl">
-              Zasadź nawyk.
+              {t.smartAndSocial.habitTitle}
             </h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-darkForest/70 md:text-base">
-              Każdy kwadracik to sesja nauki. Zobacz, jak Twój rok zamienia
-              się w&nbsp;zielony ogród wiedzy.
+              {t.smartAndSocial.habitDesc}
             </p>
             <div className="flex width-full align-middle justify-center">
               <Image

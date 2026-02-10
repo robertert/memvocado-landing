@@ -1,17 +1,23 @@
+"use client";
+
+import { useLanguage } from "@/lib/LanguageContext";
+
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="border-t-2 border-darkForest bg-softCream px-6 py-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 md:flex-row md:justify-between">
         <span className="font-body text-sm text-darkForest/60">
-          &copy; 2026 Memvocado
+          {t.footer.copyright}
         </span>
 
         <div className="flex gap-6 font-body text-sm text-darkForest/60">
           <a href="/privacy" className="transition-colors hover:text-darkForest">
-            Polityka prywatności
+            {t.footer.privacy}
           </a>
           <a href="#" className="transition-colors hover:text-darkForest">
-            Regulamin
+            {t.footer.terms}
           </a>
         </div>
 

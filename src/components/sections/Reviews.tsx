@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { Card } from "@/components/ui/Card";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -15,40 +16,9 @@ const cardVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-const reviews = [
-  {
-    initials: "MK",
-    handle: "@marta_kwiat",
-    text: "Przeniosłam wszystkie talie z Anki i w końcu mam apkę, która nie wygląda jak z 2005 roku. Uczenie się znów sprawia frajdę!",
-  },
-  {
-    initials: "JW",
-    handle: "@jakub_med",
-    text: "Algorytm FSRS jest genialny — powtórki trafiają idealnie w moment, kiedy zaczynam zapominać. Sesja na medycynie nigdy nie była łatwiejsza.",
-  },
-  {
-    initials: "AZ",
-    handle: "@ania_zet",
-    text: "Robię fiszki aparatem w tramwaju i powtarzam offline w metrze. Memvocado dosłownie podróżuje ze mną.",
-  },
-  {
-    initials: "PT",
-    handle: "@piotr_tech",
-    text: "Miałem 3000 kart w Anki i bałem się migracji. Import zajął 30 sekund. Wszystko działa.",
-  },
-  {
-    initials: "KL",
-    handle: "@kasia_lang",
-    text: "Uczę się japońskiego i funkcja aparatu to game-changer. Skan kanji → fiszka → powtórka. Magia.",
-  },
-  {
-    initials: "DM",
-    handle: "@dawid_musk",
-    text: "W końcu apka do nauki, która wygląda tak dobrze, że chcę ją otwierać. A awokado rośnie i motywuje!",
-  },
-];
-
 export function Reviews() {
+  const { t } = useLanguage();
+
   return (
     <section className="px-6 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
@@ -59,7 +29,7 @@ export function Reviews() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
         >
-          Co mówią inni?
+          {t.reviews.heading}
         </motion.h2>
 
         <motion.div
@@ -69,7 +39,7 @@ export function Reviews() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {reviews.map((review) => (
+          {t.reviews.items.map((review) => (
             <Card
               key={review.handle}
               className="snap-center min-w-[280px] shrink-0 border-l-4 border-l-avocadoGreen p-5 md:min-w-0 md:shrink"

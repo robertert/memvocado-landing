@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
 import Image from "next/image";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function AvoHelper() {
+  const { t } = useLanguage();
+
   return (
     <section className="px-6 py-16 md:py-24">
       <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-16">
@@ -15,16 +18,14 @@ export function AvoHelper() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <Badge variant="lime">AI TUTOR</Badge>
+          <Badge variant="lime">{t.avoHelper.badge}</Badge>
 
           <h2 className="mt-4 font-heading text-3xl text-darkForest md:text-4xl">
-            Nie rozumiesz? Zapytaj AVO.
+            {t.avoHelper.heading}
           </h2>
 
           <p className="mt-4 max-w-md font-body text-base leading-relaxed text-darkForest/70 md:text-lg">
-            AVO to Twój osobisty AI tutor. Wyjaśni koncept, poda mnemoniki,
-            użyje słowa w&nbsp;zdaniu i&nbsp;pomoże zrozumieć najtrudniejsze
-            zagadnienia. Wszystko w&nbsp;przyjaznym stylu.
+            {t.avoHelper.description}
           </p>
         </motion.div>
 
