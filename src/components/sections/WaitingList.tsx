@@ -7,11 +7,13 @@ import { useLanguage } from "@/lib/LanguageContext";
 
 export function WaitingList() {
   const { t } = useLanguage();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
 
@@ -20,8 +22,24 @@ export function WaitingList() {
       return;
     }
 
-    // TODO: integrate with real API (e.g. Mailchimp, Resend, Supabase)
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name }),
+      });
+
+      if (!res.ok) {
+        throw new Error();
+      }
+
+      setSubmitted(true);
+    } catch {
+      setError(t.waitingList.serverError);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -57,16 +75,25 @@ export function WaitingList() {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
+            className="mt-8 flex flex-col items-center gap-3"
           >
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t.waitingList.namePlaceholder}
+              disabled={loading}
+              className="w-full max-w-xs rounded-full border-2 border-darkForest bg-paperWhite px-5 py-3 font-body text-darkForest placeholder:text-darkForest/40 focus:outline-none focus:ring-2 focus:ring-avocadoGreen disabled:opacity-50"
+            />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t.waitingList.placeholder}
-              className="w-full rounded-full border-2 border-darkForest bg-paperWhite px-5 py-3 font-body text-darkForest placeholder:text-darkForest/40 focus:outline-none focus:ring-2 focus:ring-avocadoGreen sm:max-w-xs"
+              disabled={loading}
+              className="w-full max-w-xs rounded-full border-2 border-darkForest bg-paperWhite px-5 py-3 font-body text-darkForest placeholder:text-darkForest/40 focus:outline-none focus:ring-2 focus:ring-avocadoGreen disabled:opacity-50"
             />
-            <Button type="submit" variant="secondary" className="w-full sm:w-auto">
+            <Button type="submit" variant="secondary" className="w-full max-w-xs" disabled={loading}>
               {t.waitingList.button}
             </Button>
           </form>
