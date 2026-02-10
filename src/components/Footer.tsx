@@ -23,7 +23,7 @@ export function Footer() {
 
         <div className="flex gap-5">
           <a
-            href="#"
+            href="https://x.com/memvocado"
             aria-label="X / Twitter"
             className="text-darkForest/50 transition-colors hover:text-darkForest"
           >
@@ -32,7 +32,7 @@ export function Footer() {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/company/memvocado/"
             aria-label="LinkedIn"
             className="text-darkForest/50 transition-colors hover:text-darkForest"
           >
